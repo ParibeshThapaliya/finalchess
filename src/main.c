@@ -109,18 +109,18 @@ int main(void)
                 move = get_user_move();
 
                 piece = game.board.squares[move.start.y][move.start.x];
-            } while (piece == NULL || !is_legal_move(&game.board, piece, &move) || piece->color != player1.color || is_in_check(&game, &player1));
+            } while (piece == NULL || !is_legal_move(&game.board, piece, &move) || piece->color != player1.color || is_in_check(&game.board, &player1));
         }
         move_piece(&game.board, &move);
         game.board.lastMove = move;
         insert_board(&game.log, &game.board);
         print_board(&game.board);
-        if (is_checkmate(&game, &player2))
+        if (is_checkmate(&game.board, &player2))
         {
             printf("Player1 Win!\n");
             break;
         }
-        else if (is_stalemate(&game, &player2))
+        else if (is_stalemate(&game.board, &player2))
         {
             printf("Stalemate!\n");
             break;
@@ -137,19 +137,19 @@ int main(void)
             {
                 move = get_user_move();
                 piece = game.board.squares[move.start.y][move.start.x];
-            } while (piece == NULL || !is_legal_move(&game.board, piece, &move) || piece->color != player2.color || is_in_check(&game, &player2));
+            } while (piece == NULL || !is_legal_move(&game.board, piece, &move) || piece->color != player2.color || is_in_check(&game.board, &player2));
         }
 
         move_piece(&game.board, &move);
         game.board.lastMove = move;
         insert_board(&game.log, &game.board);
         print_board(&game.board);
-        if (is_checkmate(&game, &player1))
+        if (is_checkmate(&game.board, &player1))
         {
             printf("Player2 Win!\n");
             break;
         }
-        else if (is_stalemate(&game, &player1))
+        else if (is_stalemate(&game.board, &player1))
         {
             printf("Stalemate!\n");
             break;
