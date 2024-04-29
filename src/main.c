@@ -15,10 +15,6 @@ int letter_to_index(char letter)
 {
     return tolower(letter) - 'a';
 }
-int index_to_letter(int number)
-{
-    return 'a' + number;
-}
 
 struct Move get_user_move()
 {
