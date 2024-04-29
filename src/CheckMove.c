@@ -264,7 +264,7 @@ bool check_move_rook(struct Board *board, struct Piece *piece, struct Move *move
     }
     if (move->start.x == 0)
     {
-        if (piece->color = BLACK)
+        if (piece->color == BLACK)
         {
             board->black_can_castle_queenside = false;
         }
@@ -275,7 +275,7 @@ bool check_move_rook(struct Board *board, struct Piece *piece, struct Move *move
     }
     else if (move->start.x == 7)
     {
-        if (piece->color = BLACK)
+        if (piece->color == BLACK)
         {
             board->black_can_castle_kingside = false;
         }
@@ -400,7 +400,7 @@ bool check_move_king(struct Board *board, struct Piece *piece, struct Move *move
         // Check if the destination square is empty or occupied by an opponent's piece
         if (board->squares[end_y][end_x] == NULL || board->squares[end_y][end_x]->color != piece->color)
         {
-            if (piece->color = WHITE)
+            if (piece->color == WHITE)
             {
                 board->white_can_castle_kingside = false;
                 board->white_can_castle_queenside = false;
