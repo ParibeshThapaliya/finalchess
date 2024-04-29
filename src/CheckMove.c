@@ -418,6 +418,18 @@ bool check_move_king(struct Board *board, struct Piece *piece, struct Move *move
     return false;
 }
 
+bool checked_after_move(struct Board *board, struct Move *move, struct Player *player)
+{
+    // Make a copy of the current board
+    struct Board copied_board;
+    copy_board(board, &copied_board);
+
+    // Perform the move on the copied board
+    move_piece(&copied_board, move);
+
+    // Check if the player is in check after the move
+    return is_in_check(&copied_board, player);
+}
 bool is_legal_move(struct Board *board, struct Piece *piece, struct Move *move)
 {
     switch (piece->type)
