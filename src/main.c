@@ -129,7 +129,7 @@ int main(void)
         printf("It is player2's turn:\n");
         if (player2.isComputer)
         {
-            move = best_move_search(&game.board, true);
+            move = best_move_search(&game.board, false);
         }
         else
         {

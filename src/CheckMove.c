@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "CheckMove.h"
 #include <stdlib.h>
 
@@ -62,35 +64,37 @@ bool check_move_pawn(struct Board *board, struct Piece *piece, struct Move *move
         }
     }
     // en pasant
-    struct Move prevMove = board->lastMove;
-    struct Piece lastpeice = *board->squares[prevMove.end.y][prevMove.end.x];
-    int diffy = abs(prevMove.start.y - prevMove.end.y);
-    int diffx = abs(prevMove.end.x - move->start.x);
-    int preMovex = prevMove.end.x;
-    // pawns are on the same y , last pawn moved two, and pawn ends in the same x and the distance is 1
+    if (board->lastMove.start.x>=0&&board->lastMove.start.x<=7) {
+        struct Move prevMove = board->lastMove;
+        struct Piece lastpeice = *board->squares[prevMove.end.y][prevMove.end.x];
+        int diffy = abs(prevMove.start.y - prevMove.end.y);
+        int diffx = abs(prevMove.end.x - move->start.x);
+        int preMovex = prevMove.end.x;
+        // pawns are on the same y , last pawn moved two, and pawn ends in the same x and the distance is 1
 
-    // Check if the pawn is capturing diagonally
-    if (abs(end_x - start_x) == 1 && abs(end_y - start_y) == 1)
-    { // enpassant
-        if (move->start.y == prevMove.end.y && diffy == 2 && move->end.x == preMovex && diffx == 1 &&
-            lastpeice.color != piece->color && lastpeice.type == PAWN && board->squares[end_y][end_x] == NULL)
-        {
-            board->squares[prevMove.end.y][prevMove.end.x] = NULL;
-
-            return true;
-        }
-        // Check if there is a piece of the opposite color to capture
-        else if (board->squares[end_y][end_x] == NULL || board->squares[end_y][end_x]->color == piece->color)
-        {
-            return false; // No piece to capture or same color piece
-        }
-        else
-        {
-            if (end_y == 0 || end_y == 7)
+        // Check if the pawn is capturing diagonally
+        if (abs(end_x - start_x) == 1 && abs(end_y - start_y) == 1)
+        { // enpassant
+            if (move->start.y == prevMove.end.y && diffy == 2 && move->end.x == preMovex && diffx == 1 &&
+                lastpeice.color != piece->color && lastpeice.type == PAWN && board->squares[end_y][end_x] == NULL)
             {
-                piece->type = promotion();
+                board->squares[prevMove.end.y][prevMove.end.x] = NULL;
+
+                return true;
             }
-            return true;
+            // Check if there is a piece of the opposite color to capture
+            else if (board->squares[end_y][end_x] == NULL || board->squares[end_y][end_x]->color == piece->color)
+            {
+                return false; // No piece to capture or same color piece
+            }
+            else
+            {
+                if (end_y == 0 || end_y == 7)
+                {
+                    piece->type = promotion();
+                }
+                return true;
+            }
         }
     }
 
