@@ -161,8 +161,7 @@ int main(void)
         switch_players(&game);
     }
 
-    FILE *filePointer;
-    filePointer = fopen("../bin/log.txt", "w");
+    filePointer = fopen("../bin/log.txt", "a");
 
     if (filePointer == NULL)
     {
