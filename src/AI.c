@@ -203,9 +203,7 @@ struct Move best_move_search(struct Board* board, bool maximizing_player) {
                         if (is_legal_move(&new_board, new_board.squares[from_y][from_x], &move)) {
                             // Recursively call alpha_beta_search with decreased depth
                             move_piece(&new_board, &move);
-                            struct Move move_score;
                             int score = evaluate_board(&new_board);
-                            move_score.score = score;
                             // Update best move if needed
                             if ((maximizing_player && score > best_move.score) || (!maximizing_player && score < best_move.score)) {
                                 best_move = move;
