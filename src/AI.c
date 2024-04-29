@@ -1,7 +1,6 @@
 #include "AI.h"
 
 
-// 白方棋子的位置分数表
 const int POSITION_WHITE_PAWN[64] = {
     0, 0, 0, 0, 0, 0, 0, 0,
     5, 10, 10, -20, -20, 10, 10, 5,
