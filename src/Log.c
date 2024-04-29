@@ -4,31 +4,13 @@ void init_board_list(struct BoardList *list)
 {
     list->head = NULL;
     list->tail = NULL;
+    list->length = 0;
 }
-/*
-int writeTofile(struct Game *game)
+int index_to_letter(int number)
 {
-  struct Game *finalGame = game;
-  struct BoardNode *current = finalGame->log.head;
+    return 'a' + number;
+}
 
-
-
-  int moveTracker = 1;
-  while (current->next != NULL)
-  {
-      int xi = current->board.lastMove.start.x;
-      int yi = current->board.lastMove.start.y;
-      int xf = current->board.lastMove.end.x;
-      int yf = current->board.lastMove.end.y;
-      fprintf(filePointer, "move %d :%c%d to %c%d\n", moveTracker,
-              index_to_letter(xi), yi, index_to_letter(xf), yf);
-      current = current->next;
-      moveTracker++;
-  }
-
-  fclose(filePointer);
-  return 0;
-}*/
 void insert_board(struct BoardList *list, struct Board *board)
 {
     // Create a new BoardNode
@@ -42,6 +24,7 @@ void insert_board(struct BoardList *list, struct Board *board)
     // Assign the board to the new node
     newNode->board = *board;
     newNode->next = NULL;
+
     // If the list is empty, set the new node as both head and tail
     if (list->head == NULL)
     {
@@ -60,7 +43,8 @@ void insert_board(struct BoardList *list, struct Board *board)
     int yi = newNode->board.lastMove.start.y;
     int xf = newNode->board.lastMove.end.x;
     int yf = newNode->board.lastMove.end.y;
-    fprintf(filePointer, "%c%d to %c%d\n",
+    list->length++;
+    fprintf(filePointer, "move %d : %c%d to %c%d\n", list->length,
             index_to_letter(xi), yi + 1, index_to_letter(xf), yf + 1);
     fclose(filePointer);
 }
@@ -96,6 +80,7 @@ void undo_move(struct BoardList *list)
         free(current);
         list->tail = prev;
     }
+    list->length--;
 }
 
 void clear_board_list(struct BoardList *list)
