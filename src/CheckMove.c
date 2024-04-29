@@ -115,7 +115,7 @@ enum PieceType promotion()
 {
     char type;
     printf("Enter the what you want the pawn to be promoted to Q,N,R,P,B ");
-    scanf("%c", type);
+    scanf("%c", &type);
     switch (tolower(type))
     {
     case 'q':
