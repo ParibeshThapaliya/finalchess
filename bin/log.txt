@@ -1,1 +1,4 @@
-
+GAME START
+e2 to e4
+a7 to a6
+d2 to d4
