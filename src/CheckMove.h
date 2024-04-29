@@ -13,4 +13,5 @@ bool check_move_king(struct Board *board, struct Piece *piece, struct Move *move
 bool special_moves(struct Board *board, struct Piece *piece, struct Move *move);
 bool is_legal_move(struct Board *board, struct Piece *piece, struct Move *move);
 enum PieceType promotion();
+bool checked_after_move(struct Board *board, struct Move *move, struct Player *player);
 #endif /* CHECKMOVE_H */
